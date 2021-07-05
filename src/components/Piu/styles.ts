@@ -16,12 +16,14 @@ export const UserPicture = styled.Image`
   height: 48px;
   border-radius: 24px;
 
-  border: 1.5px #7c00f3;
+  border-width: 1.5px;
+  border-color: #7c00f3;
 
   margin-right: 10px;
 `;
 
 export const PiuContent = styled.View`
+  width: 100%;
   flex-shrink: 1;
 `;
 

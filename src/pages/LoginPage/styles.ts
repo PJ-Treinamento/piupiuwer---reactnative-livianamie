@@ -39,7 +39,7 @@ export const Input = styled.TextInput`
 
 export const ErrorText = styled.Text`
   font-size: 12px;
-  font-family: Archivo_400Regular;
+  font-family: Poppins_400Regular;
 
   color: red;
 `;

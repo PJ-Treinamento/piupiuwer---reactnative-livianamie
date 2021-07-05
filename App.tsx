@@ -3,28 +3,32 @@ import React from 'react';
 
 import AppLoading from 'expo-app-loading';
 
-import { Archivo_400Regular, Archivo_700Bold, useFonts } from '@expo-google-fonts/archivo'
-import { Poppins_400Regular, Poppins_600SemiBold } from '@expo-google-fonts/poppins'
+import { Poppins_400Regular, Poppins_600SemiBold , useFonts} from '@expo-google-fonts/poppins';
 
-import AppStack from './src/routes/AppStack';
-
+import { AuthProvider, useAuth } from './src/hooks/useAuth';
+import { Routes } from './src/routes/routes';
 
 export default function App() {
+  const { loading } = useAuth();
+
   let [ fontsLoaded ] = useFonts({
-    Archivo_400Regular,
-    Archivo_700Bold,
     Poppins_400Regular,
     Poppins_600SemiBold
   });
 
-  if (!fontsLoaded) {
+  
+  if (!fontsLoaded || loading) {
     return <AppLoading />;
-  } else {
+  } 
+  else {
     return (
       <>
-        <AppStack />
-        <StatusBar style="light" />
+        <AuthProvider>
+          <Routes />
+          <StatusBar style="light" />
+        </AuthProvider>
       </>
     );
   }
 }
+  

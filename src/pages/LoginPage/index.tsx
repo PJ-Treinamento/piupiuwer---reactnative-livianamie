@@ -16,6 +16,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useAuth } from "../../hooks/useAuth";
 import api from "../../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect } from "react";
 
 interface LoginData {
   email: string;
@@ -57,12 +58,37 @@ const LoginPage: React.FC = () => {
   //   }
   // }, [email, password]);
 
+  // const handleLogin = useCallback(async () => {    
+  //   try {
+  //     console.log(email)
+  //     console.log(password)
+  //     const response = await api.post('/sessions/login', {
+  //       email: email,
+  //       passwword: password
+  //     })
+  
+  //     const token = response.data.token;
+  //     const user = response.data.user;
+  
+  //     await AsyncStorage.setItem('@Piupiuwer:token', token);
+  //     await AsyncStorage.setItem('@Piupiuwer:user', JSON.stringify(user));
+  
+  //     navigation.navigate('Tabs')
+  //   }
+  //   catch (response) {
+  //     setErrorMessage(response.data.error)
+  //   }
+
+  // }, []);
+
+  // useEffect(() => {
+  //     AsyncStorage.clear();
+  // }, [])
+
   const handleLogin = useCallback(async () => {    
-    // login({email, password});
+    await login({email, password});
 
-    navigation.navigate('Tabs')
-
-  }, []);
+  }, [login, email, password]);
 
 
   return (
@@ -83,7 +109,7 @@ const LoginPage: React.FC = () => {
         />
       </InputsContainer>
 
-      <ErrorText>{ errorMessage }</ErrorText>
+      { !!errorMessage && <ErrorText>{ errorMessage }</ErrorText> }
 
       <LoginButton onPress={handleLogin}>
         <LoginButtonText>Entrar</LoginButtonText>
