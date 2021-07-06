@@ -1,3 +1,4 @@
+import { RectButton } from "react-native-gesture-handler";
 import styled, { css } from "styled-components/native";
 
 export const Container = styled.View`
@@ -69,6 +70,18 @@ export const Interaction = styled.View`
   align-items: center;
 `;
 
+export const LikeIconButton = styled(RectButton)`
+
+`;
+
+// export const TrashIconButton = styled(RectButton)`
+
+// `;
+
+export const TrashIconButton = styled(RectButton)`
+
+`;
+
 const interactionsTexts = css `
   font-size: 14px;
   font-family: Poppins_400Regular;
@@ -87,10 +100,6 @@ export const LikeText = styled.Text`
   ${interactionsTexts}
 `;
 
-// export const LikeText = styled.View`
-
-// `;
-
-// export const LikeText = styled.View`
-
-// `;
+export const TashIcon = styled.View`
+  ${interactionsTexts}
+`;

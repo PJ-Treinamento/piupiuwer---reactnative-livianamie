@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 
 import {
   CommentText,
   Container,
   Interaction,
   InteractionsContainer,
+  LikeIconButton,
   LikeText,
   PiuContent,
   PiuText,
   RepiuText,
   TopContent,
+  TrashIconButton,
   UserInfos,
   UserName,
   UserPicture,
@@ -19,6 +21,7 @@ import {
 import { Feather } from "@expo/vector-icons";
 import { IPiu, IPius } from "../../models";
 import { useAuth } from "../../hooks/useAuth";
+import api from "../../services/api";
 
 interface PiuProps {
   piu: IPiu;
@@ -35,7 +38,43 @@ const Piu: React.FC<PiuProps> = ({
   isLiked,
   isFavorited,
 }) => {
+  const [likeCount, setLikeCount] = useState(piu.likes.length);
+  const [likeStatus, setLikeStatus] = useState(isLiked);
+  
   const { user } = useAuth();
+
+  const id = piu.id;
+
+  const handleDelete = useCallback(() => {
+    pius.map((piuApi: IPiu) => {
+      if (id === piuApi.id) {
+        const deletePiu = async () => {
+          await api.delete('/pius', { data: { piu_id: piuApi.id } });
+        };
+        return deletePiu();
+      }
+    });
+  }, [id, pius]);
+
+  const handleLike = () => {
+    pius.map((piuApi: IPiu) => {
+      if (id === piuApi.id) {
+        const addLikeToApi = async () => {
+          const response = await api.post('/pius/like', { piu_id: piuApi.id });
+          const operation: string = response.data.operation;
+
+          if (operation === 'like') {
+            setLikeCount(likeCount + 1);
+            setLikeStatus(true);
+          } else {
+            setLikeCount(likeCount - 1);
+            setLikeStatus(false);
+          }
+        };
+        addLikeToApi();
+      }
+    });
+  };
 
   return (
     <Container>
@@ -47,32 +86,36 @@ const Piu: React.FC<PiuProps> = ({
             <UserUsername>@{piu.user.username}</UserUsername>
           </UserInfos>
 
-          <Feather name="more-horizontal" size={15} />
+          <Feather name="more-horizontal" size={16} />
         </TopContent>
 
         <PiuText>{piu.text}</PiuText>
 
         <InteractionsContainer>
           <Interaction>
-            <Feather name="message-square" size={15} />
+            <Feather name="message-square" size={16} />
             <CommentText>0</CommentText>
           </Interaction>
 
           <Interaction>
-            <Feather name="repeat" size={15} />
+            <Feather name="repeat" size={16} />
             <RepiuText>0</RepiuText>
           </Interaction>
 
           <Interaction>
-            <Feather name="heart" size={15} />
-            <LikeText>0</LikeText>
+            <LikeIconButton onPress={handleLike}>
+              <Feather name="heart" size={16} color={ likeStatus ? 'red' : 'black' } />
+            </LikeIconButton>
+            <LikeText>{ likeCount }</LikeText>
           </Interaction>
 
-          <Feather name="star" size={15} />
+          <Feather name="star" size={16} />
           {piu.user.username === user.username ? (
-            <Feather name="trash-2" size={15} />
+            <TrashIconButton onPress={handleDelete}>
+              <Feather name="trash-2" size={16} />
+            </TrashIconButton>
           ) : (
-            <Feather name="share" size={15} />
+            <Feather name="share" size={16} />
           )}
         </InteractionsContainer>
       </PiuContent>

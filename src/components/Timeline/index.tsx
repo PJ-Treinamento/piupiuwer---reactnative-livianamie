@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 import { IPiu, IPius } from "../../models";
 
 import Piu from "../Piu";
@@ -14,6 +15,16 @@ import {
 
 const Timeline: React.FC<IPius> = ({ pius }) => {
   const [search, setSearch] = useState('');
+
+  const { user } = useAuth();
+
+  const likedPiusId = useMemo(() => {
+    const likedPius = pius.filter((piu) => {
+      const likedPiusUsername = piu.likes.map((users) => users.user.username);
+      return likedPiusUsername.includes(user.username);
+    });
+    return likedPius.map((piu) => piu.id);
+  }, [pius, user.username]);
   
   return (
     <Container>
@@ -43,7 +54,7 @@ const Timeline: React.FC<IPius> = ({ pius }) => {
               // piuUsername={piu.user.username}
               pius={pius}
               piu={piu}
-              // isLiked={likedPiusId.includes(piu.id)}
+              isLiked={likedPiusId.includes(piu.id)}
               // isFavorited={favoritedPiusId.includes(piu.id)}
             />
           );

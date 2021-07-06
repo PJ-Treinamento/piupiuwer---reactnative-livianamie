@@ -1,4 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
+import { useAuth } from "../../hooks/useAuth";
+import { IPiu } from "../../models";
+import api from "../../services/api";
 
 import {
   Container,
@@ -11,10 +14,19 @@ import {
   PostButtonText,
 } from "./styles";
 
+// interface NewPiuProps {
+//   pius: IPiu[];
+//   setPius: React.Dispatch<React.SetStateAction<IPiu[]>>
+// }
+
 const NewPiu: React.FC = () => {
+  const [newPiuInfos, setNewPiuInfos] = useState<IPiu>({} as IPiu);
+  
   const [newPiuText, setNewPiuText] = useState('');
   const [counterErrorText, setCounterErrorText] = useState('');
   const [isWrong, setIsWrong] = useState(false);
+
+  const { user } = useAuth();
   
 
   useEffect(() => {
@@ -30,6 +42,21 @@ const NewPiu: React.FC = () => {
     }
     counterCheck();
   }, [newPiuText.length])
+
+  const handleNewPiu = async () => {
+    await api.post('/pius', { text: newPiuText });
+
+    // const newPiu: IPiu = {
+    //   id: response.data.id,
+    //   user: user,
+    //   likes: [],
+    //   text: newPiuText,
+    //   created_at: response.data.created_at,
+    //   updated_at: response.data.updated_at
+    // }
+
+    // setPius([newPiu, ...pius])
+  }
 
   return (
     <Container>
@@ -60,7 +87,7 @@ const NewPiu: React.FC = () => {
         </CounterContainer>
       </NewPiuContent>
 
-      <PostButton>
+      <PostButton onPress={handleNewPiu}>
         <PostButtonText>Piu</PostButtonText>
       </PostButton>
     </Container>
