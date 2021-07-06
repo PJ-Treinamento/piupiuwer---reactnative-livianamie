@@ -47,15 +47,15 @@ export const SectionText = styled.Text`
 `;
 
 export const SearchInput = styled.TextInput`
-  width: 100px;
+  width: 120px;
   height: 30px; 
   margin-right: 8px;
   padding: 5px;
 
-  font-size: 13px;
+  font-size: 14px;
   font-family: Poppins_400Regular;
   background-color: #EAC9FF;
 
-  border: 1px solid #7C00F3;
+  border: 1.5px solid #7C00F3;
   border-radius: 8px;
 `;

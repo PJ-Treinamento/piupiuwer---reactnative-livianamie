@@ -68,8 +68,8 @@ export const PopUpContent = styled.View`
 `;
 
 export const PopUpSearchInput = styled.TextInput`
-  width: 150px;
-  height: 30px; 
+  width: 200px;
+  height: 40px; 
 
   margin-bottom: 20px;
   padding: 5px 10px;
@@ -80,7 +80,8 @@ export const PopUpSearchInput = styled.TextInput`
   border-radius: 8px;
   /* box-shadow: 2px 2px 0 0 #FFF500; */
 
-  font-size: 14px;
+  font-size: 16px;
+  font-family: Poppins_400Regular;
 `;
 
 export const UsersList = styled.ScrollView`
@@ -94,7 +95,7 @@ export const User = styled.View`
 
   width: 250px;
 
-  padding: 10px 20px;
+  padding: 10px;
 
   border-top-width: 1px;
   border-top-color: #9E00FF;
@@ -105,7 +106,7 @@ export const UserPicture = styled.Image`
   height: 50px;
   border-radius: 25px;
 
-  margin-right: 15px;
+  margin-right: 10px;
 `;
 
 export const NamesContainer = styled.View`
@@ -115,7 +116,6 @@ export const NamesContainer = styled.View`
 export const UserNames = styled.Text`
   font-size: 16px;
   font-family: Poppins_600SemiBold;
-  letter-spacing: 1px;
 `;
 
 export const UserUsername = styled.Text`

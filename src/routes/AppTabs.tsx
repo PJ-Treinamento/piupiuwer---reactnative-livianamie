@@ -27,11 +27,6 @@ function AppTabs() {
           width: 25,
           height: 25,
         },
-        labelStyle: {
-          fontFamily: "Archivo_700Bold",
-          fontSize: 13,
-          marginLeft: 16,
-        },
         inactiveBackgroundColor: "#fafafc",
         activeBackgroundColor: "#ebebf5",
         inactiveTintColor: "#7C00F3",

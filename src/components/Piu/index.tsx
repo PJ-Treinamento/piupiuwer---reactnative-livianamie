@@ -40,8 +40,9 @@ const Piu: React.FC<PiuProps> = ({
 }) => {
   const [likeCount, setLikeCount] = useState(piu.likes.length);
   const [likeStatus, setLikeStatus] = useState(isLiked);
-  
-  const { user } = useAuth();
+  const [favoriteStatus, setFavoriteStatus] = useState(isFavorited);
+
+  const { user, token } = useAuth();
 
   const id = piu.id;
 
@@ -49,21 +50,21 @@ const Piu: React.FC<PiuProps> = ({
     pius.map((piuApi: IPiu) => {
       if (id === piuApi.id) {
         const deletePiu = async () => {
-          await api.delete('/pius', { data: { piu_id: piuApi.id } });
+          await api.delete("/pius", { data: { piu_id: piuApi.id } });
         };
         return deletePiu();
       }
     });
   }, [id, pius]);
 
-  const handleLike = () => {
+  const handleLike = useCallback(() => {
     pius.map((piuApi: IPiu) => {
       if (id === piuApi.id) {
         const addLikeToApi = async () => {
-          const response = await api.post('/pius/like', { piu_id: piuApi.id });
+          const response = await api.post("/pius/like", { piu_id: piuApi.id });
           const operation: string = response.data.operation;
 
-          if (operation === 'like') {
+          if (operation === "like") {
             setLikeCount(likeCount + 1);
             setLikeStatus(true);
           } else {
@@ -74,7 +75,28 @@ const Piu: React.FC<PiuProps> = ({
         addLikeToApi();
       }
     });
-  };
+  }, [id, pius, likeCount]);
+
+  const handleFavorite = useCallback(() => {
+    pius.map((piuApi: IPiu) => {
+      if (id === piuApi.id) {
+        if (favoriteStatus === true) {
+          const unfavorite = async () => {
+            setFavoriteStatus(false);
+            await api.post("/pius/unfavorite", { piu_id: piu.id });
+          };
+          unfavorite();
+        } else {
+          const favorite = async () => {
+            await api.post("/pius/favorite", { piu_id: piuApi.id });
+            setFavoriteStatus(true);
+          };
+          favorite();
+        }
+      }
+    });
+    return favoriteStatus;
+  }, [favoriteStatus, id, pius, token]);
 
   return (
     <Container>
@@ -104,12 +126,25 @@ const Piu: React.FC<PiuProps> = ({
 
           <Interaction>
             <LikeIconButton onPress={handleLike}>
-              <Feather name="heart" size={16} color={ likeStatus ? 'red' : 'black' } />
+              <Feather
+                name="heart"
+                size={16}
+                color={likeStatus ? "red" : "black"}
+              />
             </LikeIconButton>
-            <LikeText>{ likeCount }</LikeText>
+            <LikeText>{likeCount}</LikeText>
           </Interaction>
 
-          <Feather name="star" size={16} />
+          <Interaction>
+            <LikeIconButton onPress={handleFavorite}>
+              <Feather
+                name="star"
+                size={16}
+                color={favoriteStatus ? "yellow" : "black"}
+              />
+            </LikeIconButton>
+          </Interaction>
+
           {piu.user.username === user.username ? (
             <TrashIconButton onPress={handleDelete}>
               <Feather name="trash-2" size={16} />

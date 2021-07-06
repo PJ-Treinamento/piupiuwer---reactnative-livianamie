@@ -25,6 +25,10 @@ const Timeline: React.FC<IPius> = ({ pius }) => {
     });
     return likedPius.map((piu) => piu.id);
   }, [pius, user.username]);
+
+  const favoritedPiusId = useMemo(() => {
+    return user.favorites.map((favoritedPiu) => favoritedPiu.id);
+  }, [user.favorites]);
   
   return (
     <Container>
@@ -36,6 +40,7 @@ const Timeline: React.FC<IPius> = ({ pius }) => {
 
         <SearchInput
           placeholder="Filtrar por usuário"
+          placeholderTextColor='#F8EDFF'
           value={search}
           onChangeText={(text) => setSearch(text)}
         />
@@ -55,7 +60,7 @@ const Timeline: React.FC<IPius> = ({ pius }) => {
               pius={pius}
               piu={piu}
               isLiked={likedPiusId.includes(piu.id)}
-              // isFavorited={favoritedPiusId.includes(piu.id)}
+              isFavorited={favoritedPiusId.includes(piu.id)}
             />
           );
         }

@@ -71,7 +71,7 @@ export const Interaction = styled.View`
 `;
 
 export const LikeIconButton = styled(RectButton)`
-
+  margin: 2px;
 `;
 
 // export const TrashIconButton = styled(RectButton)`
@@ -79,7 +79,7 @@ export const LikeIconButton = styled(RectButton)`
 // `;
 
 export const TrashIconButton = styled(RectButton)`
-
+  padding: 2px;
 `;
 
 const interactionsTexts = css `
