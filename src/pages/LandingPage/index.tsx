@@ -16,16 +16,18 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import Background from '../../assets/background.png';
+import { StatusBar } from "expo-status-bar";
 
 const LandingPage: React.FC = () => {
   const navigation = useNavigation();
 
   const goToLoginPage = () => {
-    navigation.navigate('Login Screen');
+    navigation.navigate('LoginPage');
   }
 
   return (
     <Container>
+      <StatusBar />
       <BackgroundImage source={ Background } resizeMode='cover'>
         <FontAwesome5 name="earlybirds" size={100} color="#9E00FF" />
 

@@ -111,7 +111,9 @@ const Piu: React.FC<PiuProps> = ({
       <PiuContent>
         <TopContent>
           <UserInfos>
-            <UserName>{piu.user.first_name}</UserName>
+            <UserName>
+              {piu.user.first_name} {piu.user.last_name}
+            </UserName>
             <UserUsername>@{piu.user.username}</UserUsername>
           </UserInfos>
 

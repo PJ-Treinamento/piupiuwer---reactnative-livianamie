@@ -28,6 +28,7 @@ interface AuthContextData {
   error: boolean;
   loading: boolean;
   login(user: LoginData): void;
+  logout(): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -73,6 +74,13 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   }, []);
 
+  const logout = () => {
+    AsyncStorage.removeItem('@Piupiuwer:user');
+    AsyncStorage.removeItem('@Piupiuwer:token');
+
+    setUserData({} as AuthState);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -81,6 +89,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         error: error,
         loading: loading,
         login,
+        logout
       }}
     >
       {children}

@@ -12,9 +12,10 @@ import {
 } from "./styles";
 
 import { FontAwesome5 } from "@expo/vector-icons";
-import Background from '../../assets/background.png';
+import Background from "../../assets/background.png";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect } from "react";
+import { StatusBar } from "expo-status-bar";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -23,23 +24,22 @@ const LoginPage: React.FC = () => {
 
   const { login, error } = useAuth();
 
-  const handleLogin = useCallback(async () => {    
-    console.log('oi')
+  const handleLogin = useCallback(async () => {
     await login({ email, password });
 
     if (error) {
-      setErrorMessage('* E-mail ou senha incorretos')
+      setErrorMessage("* E-mail ou senha incorretos");
     }
-    if (email === '' || password === '') {
-      setErrorMessage('* Todos os campos devem estar preenchidos')
+    if (email === "" || password === "") {
+      setErrorMessage("* Todos os campos devem estar preenchidos");
     }
-
   }, [login, email, password]);
 
   return (
     <Container>
-      <BackgroundImage source={ Background } resizeMode='cover'>
-        <FontAwesome5 name="earlybirds" size={100} color="#9E00FF"/>
+      <StatusBar />
+      <BackgroundImage source={Background} resizeMode="cover">
+        <FontAwesome5 name="earlybirds" size={100} color="#9E00FF" />
         <WelcomeText>Bem-vinde de volta!</WelcomeText>
 
         <InputsContainer>
@@ -55,7 +55,7 @@ const LoginPage: React.FC = () => {
           />
         </InputsContainer>
 
-        { !!errorMessage && <ErrorText>{ errorMessage }</ErrorText> }
+        {!!errorMessage && <ErrorText>{errorMessage}</ErrorText>}
 
         <LoginButton onPress={handleLogin}>
           <LoginButtonText>Entrar</LoginButtonText>

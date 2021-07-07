@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Feather } from "@expo/vector-icons";
 
 import FeedPage from "../pages/FeedPage";
+import ProfilePage from "../pages/ProfilePage";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -42,6 +43,16 @@ function AppTabs() {
         }}
         name="FeedPage"
         component={FeedPage}
+      />
+      <Screen
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => {
+            return <Feather name="user" size={size} color={color} />;
+          },
+        }}
+        name="ProfilePage"
+        component={ProfilePage}
       />
     </Navigator>
   );
