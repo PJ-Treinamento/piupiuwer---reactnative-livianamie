@@ -25,6 +25,10 @@ const LandingPage: React.FC = () => {
     navigation.navigate('LoginPage');
   }
 
+  const goToSignUpPage = () => {
+    navigation.navigate('SignUpPage');
+  }
+
   return (
     <Container>
       <StatusBar />
@@ -39,7 +43,7 @@ const LandingPage: React.FC = () => {
             <LoginPageButtonText>Faça login</LoginPageButtonText>
           </LandindButton>
 
-          <LandindButton>
+          <LandindButton onPress={goToSignUpPage}>
             <SignUpPageButtonText>Cadastre-se</SignUpPageButtonText>
           </LandindButton>
         </ButtonsContainer>

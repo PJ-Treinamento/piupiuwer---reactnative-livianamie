@@ -14,8 +14,8 @@ import {
 import { FontAwesome5 } from "@expo/vector-icons";
 import Background from "../../assets/background.png";
 import { useAuth } from "../../hooks/useAuth";
-import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
+import { Platform } from "react-native";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -36,7 +36,7 @@ const LoginPage: React.FC = () => {
   }, [login, email, password]);
 
   return (
-    <Container>
+    <Container behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <StatusBar />
       <BackgroundImage source={Background} resizeMode="cover">
         <FontAwesome5 name="earlybirds" size={100} color="#9E00FF" />

@@ -49,6 +49,8 @@ export const ProfileContent = styled.View`
 export const UserInfosContainer = styled.View`
   align-items: flex-start;
 
+  width: 260px;
+
   margin: -50px 0px 0px 0px;
 `;
 

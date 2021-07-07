@@ -22,11 +22,21 @@ export const WelcomeText = styled.Text`
   color: #7C00F3;
   text-shadow: 1px 1px #FFF500;
 
-  margin: 40px 0;
+  margin: 20px 0 30px 0;
 `;
 
 export const InputsContainer = styled.View`
   align-items: center;
+`;
+
+export const InputWrapper = styled.View`
+  align-items: flex-start;
+`;
+
+export const Label = styled.Text`
+  font-size: 14px;
+  font-family: Poppins_600SemiBold;
+  color: #7C00F3;
 `;
 
 export const Input = styled.TextInput`
@@ -39,8 +49,8 @@ export const Input = styled.TextInput`
 
   width: 250px;
 
-  padding: 10px;
-  margin-bottom: 20px;
+  padding: 5px;
+  margin-bottom: 10px;
 `;
 
 export const ErrorText = styled.Text`
