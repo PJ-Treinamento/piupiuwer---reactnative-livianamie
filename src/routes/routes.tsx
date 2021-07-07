@@ -36,9 +36,7 @@ export const Routes = () => {
   
   return (
     <NavigationContainer>
-      <AuthProvider>
-        {token ? <AppStack /> : <AuthStack />}
-      </AuthProvider>
+        {!!token ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };

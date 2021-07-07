@@ -53,11 +53,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   const login = useCallback(async (data: LoginData) => {
     setLoading(true);
-
     try {
-      console.log('oi1');
       const response = await api.post("/sessions/login", data);
-      console.log('oi2');
       const token = response.data.token;
       const user = response.data.user;
 
@@ -71,7 +68,6 @@ export const AuthProvider: React.FC = ({ children }) => {
       }
       setLoading(false);
     } catch {
-      console.log("erro");
       setError(true);
       setLoading(false);
     }

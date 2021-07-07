@@ -14,12 +14,12 @@ import {
   PostButtonText,
 } from "./styles";
 
-// interface NewPiuProps {
-//   pius: IPiu[];
-//   setPius: React.Dispatch<React.SetStateAction<IPiu[]>>
-// }
+interface NewPiuProps {
+  pius: IPiu[];
+  setPius: (array: IPiu[]) => void;
+}
 
-const NewPiu: React.FC = () => {
+const NewPiu: React.FC<NewPiuProps> = ({ pius, setPius }) => {
   const [newPiuInfos, setNewPiuInfos] = useState<IPiu>({} as IPiu);
   
   const [newPiuText, setNewPiuText] = useState('');
@@ -44,27 +44,22 @@ const NewPiu: React.FC = () => {
   }, [newPiuText.length])
 
   const handleNewPiu = async () => {
-    await api.post('/pius', { text: newPiuText });
+    const response = await api.post('/pius', { text: newPiuText });
 
-    // const newPiu: IPiu = {
-    //   id: response.data.id,
-    //   user: user,
-    //   likes: [],
-    //   text: newPiuText,
-    //   created_at: response.data.created_at,
-    //   updated_at: response.data.updated_at
-    // }
+    const newPiu: IPiu = {
+      id: response.data.id,
+      user: user,
+      likes: [],
+      text: newPiuText,
+      created_at: response.data.created_at,
+      updated_at: response.data.updated_at
+    }
 
-    // setPius([newPiu, ...pius])
+    setPius([newPiu, ...pius])
   }
 
   return (
     <Container>
-      {/* <UserPicture 
-        source={{
-          uri: "https://pbs.twimg.com/profile_images/1245853589320368133/cRyUvTc5_400x400.jpg",
-      }} /> */}
-
       <NewPiuContent>
         <NewPiuText
           isWrong={isWrong}

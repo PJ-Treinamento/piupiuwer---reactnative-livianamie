@@ -15,47 +15,37 @@ export const BackgroundImage = styled.ImageBackground`
   align-self: stretch;
 `;
 
-export const WelcomeText = styled.Text`
-  font-size: 24px;
+export const PiupiuwerText = styled.Text`
+  font-size: 40px;
   font-family: Poppins_600SemiBold;
+
+  margin-top: 20px;
 
   color: #7C00F3;
   text-shadow: 1px 1px #FFF500;
-
-  margin: 40px 0;
 `;
 
-export const InputsContainer = styled.View`
+export const WelcomeText = styled.Text`
+  font-size: 18px;
+  font-family: Poppins_600SemiBold;
+
+  margin: 40px;
+
+  text-align: center;
+
+  color: #7C00F3;
+`;
+
+export const ButtonsContainer = styled.View`
+
+`;
+
+export const LandindButton = styled(RectButton)`
   align-items: center;
-`;
-
-export const Input = styled.TextInput`
-  background-color: white;
-  border: 1.5px solid #7C00F3;
-  border-radius: 5px;
-
-  font-size: 16px;
-  font-family: Poppins_400Regular;
 
   width: 250px;
-
-  padding: 10px;
-  margin-bottom: 20px;
-`;
-
-export const ErrorText = styled.Text`
-  font-size: 12px;
-  font-family: Poppins_400Regular;
-
-  color: red;
-`;
-
-export const LoginButton = styled(RectButton)`
-  align-items: center;
-
-  width: 200px;
-  padding: 12px 0;
-  margin-top: 40px;
+  padding: 10px 0;
+  margin-top: 20px;
 
   background-color: #9E00FF;
 
@@ -63,10 +53,22 @@ export const LoginButton = styled(RectButton)`
   border-radius: 8px;
 `;
 
-export const LoginButtonText = styled.Text`
+export const LoginPageButtonText = styled.Text`
   font-size: 20px;
   letter-spacing: 2px;
   color: #FFF500;
   text-shadow: 1px 1px 0 #000000;
   font-family: Poppins_600SemiBold;
+
+  padding: 8px;
+`;
+
+export const SignUpPageButtonText = styled.Text`
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: #FFF500;
+  text-shadow: 1px 1px 0 #000000;
+  font-family: Poppins_600SemiBold;
+
+  padding: 8px 10px;
 `;
