@@ -20,31 +20,27 @@ interface NewPiuProps {
 }
 
 const NewPiu: React.FC<NewPiuProps> = ({ pius, setPius }) => {
-  const [newPiuInfos, setNewPiuInfos] = useState<IPiu>({} as IPiu);
-  
-  const [newPiuText, setNewPiuText] = useState('');
-  const [counterErrorText, setCounterErrorText] = useState('');
+  const [newPiuText, setNewPiuText] = useState("");
+  const [counterErrorText, setCounterErrorText] = useState("");
   const [isWrong, setIsWrong] = useState(false);
 
   const { user } = useAuth();
-  
 
   useEffect(() => {
     const counterCheck = () => {
       if (newPiuText.length > 140) {
-        setCounterErrorText('* Não ultrapasse o limite de caracteres');
+        setCounterErrorText("* Não ultrapasse o limite de caracteres");
         setIsWrong(true);
-      }
-      else {
-        setCounterErrorText('');
+      } else {
+        setCounterErrorText("");
         setIsWrong(false);
       }
-    }
+    };
     counterCheck();
-  }, [newPiuText.length])
+  }, [newPiuText.length]);
 
   const handleNewPiu = async () => {
-    const response = await api.post('/pius', { text: newPiuText });
+    const response = await api.post("/pius", { text: newPiuText });
 
     const newPiu: IPiu = {
       id: response.data.id,
@@ -52,11 +48,12 @@ const NewPiu: React.FC<NewPiuProps> = ({ pius, setPius }) => {
       likes: [],
       text: newPiuText,
       created_at: response.data.created_at,
-      updated_at: response.data.updated_at
-    }
+      updated_at: response.data.updated_at,
+    };
 
-    setPius([newPiu, ...pius])
-  }
+    setPius([newPiu, ...pius]);
+    setNewPiuText("");
+  };
 
   return (
     <Container>
@@ -72,13 +69,9 @@ const NewPiu: React.FC<NewPiuProps> = ({ pius, setPius }) => {
         />
 
         <CounterContainer>
-          <CounterErrorText>
-            { counterErrorText }
-          </CounterErrorText>
+          <CounterErrorText>{counterErrorText}</CounterErrorText>
 
-          <CounterText isWrong={isWrong}>
-            { newPiuText.length }
-          </CounterText>
+          <CounterText isWrong={isWrong}>{newPiuText.length}</CounterText>
         </CounterContainer>
       </NewPiuContent>
 

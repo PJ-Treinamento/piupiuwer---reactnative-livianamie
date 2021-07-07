@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { StatusBar } from "expo-status-bar";
 
@@ -10,11 +10,15 @@ import { BackgroundImage, Container, TimelineScroll } from "./styles";
 
 import api from "../../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { IPiu } from "../../models";
-import Background from '../../assets/background.png';
+import { IPiu, IUser } from "../../models";
+import Background from "../../assets/background.png";
+import { useAuth } from "../../hooks/useAuth";
 
 const FeedPage: React.FC = () => {
   const [pius, setPius] = useState<IPiu[]>([]);
+  const [updatedUser, setUpdatedUser] = useState<IUser>({} as IUser);
+
+  const { user } = useAuth();
 
   // useEffect(() => {
   //   const clearAsyncStorage = async() => {
@@ -29,21 +33,25 @@ const FeedPage: React.FC = () => {
       setPius(response.data);
     };
     loadPius();
+
+    const getUser = async () => {
+      const response = await api.get(`/users?username=${user.username}`);
+      setUpdatedUser(response.data);
+    };
+    getUser();
   }, []);
 
   return (
-    
-      <BackgroundImage source={ Background } resizeMode='cover'>
-        <Container>
-          <StatusBar />
-          <Header />
-          <TimelineScroll>
-            <NewPiu pius={pius} setPius={setPius}/>
-            <Timeline pius={pius}/>
-          </TimelineScroll>
-        </Container>
-      </ BackgroundImage>
-    
+    <BackgroundImage source={Background} resizeMode="cover">
+      <Container>
+        <StatusBar />
+        <Header />
+        <TimelineScroll>
+          <NewPiu pius={pius} setPius={setPius} />
+          <Timeline updatedUser={updatedUser} pius={pius} setPius={setPius} />
+        </TimelineScroll>
+      </Container>
+    </BackgroundImage>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { IPiu, IPius } from "../../models";
+import { IPiu, IUser } from "../../models";
 
 import Piu from "../Piu";
 
@@ -13,8 +13,14 @@ import {
   TimelineSections,
 } from "./styles";
 
-const Timeline: React.FC<IPius> = ({ pius }) => {
-  const [search, setSearch] = useState('');
+interface ArrayPiuProps {
+  pius: IPiu[];
+  updatedUser: IUser;
+  setPius: (array: IPiu[]) => void;
+}
+
+const Timeline: React.FC<ArrayPiuProps> = ({ pius, setPius, updatedUser }) => {
+  const [search, setSearch] = useState("");
 
   const { user } = useAuth();
 
@@ -29,7 +35,7 @@ const Timeline: React.FC<IPius> = ({ pius }) => {
   const favoritedPiusId = useMemo(() => {
     return user.favorites.map((favoritedPiu) => favoritedPiu.id);
   }, [user.favorites]);
-  
+
   return (
     <Container>
       <Tab>
@@ -40,7 +46,7 @@ const Timeline: React.FC<IPius> = ({ pius }) => {
 
         <SearchInput
           placeholder="Filtrar por usuário"
-          placeholderTextColor='#F8EDFF'
+          placeholderTextColor="#F8EDFF"
           value={search}
           onChangeText={(text) => setSearch(text)}
         />
@@ -58,6 +64,7 @@ const Timeline: React.FC<IPius> = ({ pius }) => {
               key={piu.id}
               // piuUsername={piu.user.username}
               pius={pius}
+              setPius={setPius}
               piu={piu}
               isLiked={likedPiusId.includes(piu.id)}
               isFavorited={favoritedPiusId.includes(piu.id)}

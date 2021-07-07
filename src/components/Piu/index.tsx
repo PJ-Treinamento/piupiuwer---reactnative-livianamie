@@ -26,6 +26,7 @@ import api from "../../services/api";
 interface PiuProps {
   piu: IPiu;
   pius: IPiu[];
+  setPius: (array: IPiu[]) => void;
   isLiked?: boolean;
   isFavorited?: boolean;
   piuUsername?: string;
@@ -34,6 +35,7 @@ interface PiuProps {
 const Piu: React.FC<PiuProps> = ({
   piu,
   pius,
+  setPius,
   piuUsername,
   isLiked,
   isFavorited,
@@ -47,11 +49,16 @@ const Piu: React.FC<PiuProps> = ({
   const id = piu.id;
 
   const handleDelete = useCallback(() => {
-    pius.map((piuApi: IPiu) => {
+    pius.map((piuApi: IPiu, index) => {
       if (id === piuApi.id) {
+        const newPiusArray = [...pius];
+        newPiusArray.splice(index, 1);
+        setPius(newPiusArray);
+
         const deletePiu = async () => {
           await api.delete("/pius", { data: { piu_id: piuApi.id } });
         };
+
         return deletePiu();
       }
     });
@@ -140,7 +147,7 @@ const Piu: React.FC<PiuProps> = ({
               <Feather
                 name="star"
                 size={16}
-                color={favoriteStatus ? "yellow" : "black"}
+                color={favoriteStatus ? "#FFCC00" : "black"}
               />
             </LikeIconButton>
           </Interaction>
