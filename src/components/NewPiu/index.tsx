@@ -27,26 +27,23 @@ const NewPiu: React.FC<NewPiuProps> = ({ pius, setPius }) => {
   const { user } = useAuth();
 
   useEffect(() => {
-    const counterCheck = () => {
-      if (newPiuText.length > 140) {
+      if (newPiuText.trim().length > 140) {
         setCounterErrorText("* Não ultrapasse o limite de caracteres");
         setIsWrong(true);
       } else {
         setCounterErrorText("");
         setIsWrong(false);
       }
-    };
-    counterCheck();
   }, [newPiuText.length]);
 
   const handleNewPiu = async () => {
-    const response = await api.post("/pius", { text: newPiuText });
+    const response = await api.post("/pius", { text: newPiuText.trim() });
 
     const newPiu: IPiu = {
       id: response.data.id,
       user: user,
       likes: [],
-      text: newPiuText,
+      text: newPiuText.trim(),
       created_at: response.data.created_at,
       updated_at: response.data.updated_at,
     };
@@ -71,11 +68,19 @@ const NewPiu: React.FC<NewPiuProps> = ({ pius, setPius }) => {
         <CounterContainer>
           <CounterErrorText>{counterErrorText}</CounterErrorText>
 
-          <CounterText isWrong={isWrong}>{newPiuText.length}</CounterText>
+          <CounterText isWrong={isWrong}>{newPiuText.trim().length}</CounterText>
         </CounterContainer>
       </NewPiuContent>
 
-      <PostButton onPress={handleNewPiu}>
+      <PostButton
+        onPress={() => {
+          if (newPiuText.trim().length < 1 || newPiuText.trim().length > 140) {
+            return;
+          } else {
+            handleNewPiu();
+          }
+        }}
+      >
         <PostButtonText>Piu</PostButtonText>
       </PostButton>
     </Container>
