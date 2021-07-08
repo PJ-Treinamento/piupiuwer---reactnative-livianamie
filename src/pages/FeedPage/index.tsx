@@ -37,7 +37,7 @@ const FeedPage: React.FC = () => {
     <BackgroundImage source={Background} resizeMode="cover">
       <Container>
         <StatusBar />
-        <Header />
+        <Header page_name='Página Inicial' />
         <TimelineScroll>
           <NewPiu pius={pius} setPius={setPius} />
           <Timeline updatedUser={updatedUser} pius={pius} setPius={setPius} />

@@ -18,7 +18,7 @@ const NotificationsPage: React.FC = () => {
       <Container>
         <StatusBar />
 
-        <Header />
+        <Header page_name='Notificações'/>
 
         <NotificationsScroll>
           <NotificationsScrollContainer>

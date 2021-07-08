@@ -21,7 +21,7 @@ const MessagesPage: React.FC = () => {
       <Container>
         <StatusBar />
 
-        <Header />
+        <Header page_name='Mensagens' />
 
         <MessagesScroll>
           <MessagesScrollContainer>

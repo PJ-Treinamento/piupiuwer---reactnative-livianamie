@@ -21,7 +21,11 @@ import Modal from "react-native-modal";
 import { IUser } from "../../models";
 import api from "../../services/api";
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  page_name: string;
+}
+
+const Header: React.FC<HeaderProps> = ({ page_name }) => {
   const [popUpDisplay, setPopUpDisplay] = useState(false);
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
@@ -46,7 +50,7 @@ const Header: React.FC = () => {
     <Container>
       <PageInfo>
         <FontAwesome5 name="earlybirds" size={35} color="#9E00FF" />
-        <PageInfoText>Página Inicial</PageInfoText>
+        <PageInfoText>{page_name}</PageInfoText>
       </PageInfo>
 
       <SearchButton onPress={openPopUp}>

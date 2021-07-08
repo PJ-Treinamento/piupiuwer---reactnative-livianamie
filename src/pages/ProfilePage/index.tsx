@@ -64,7 +64,7 @@ const ProfilePage: React.FC = () => {
       <Container>
         <StatusBar />
 
-        <Header />
+        <Header page_name='Perfil' />
 
         <ProfileScroll>
           <ProfileScrollContainer>

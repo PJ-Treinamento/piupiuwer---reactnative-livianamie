@@ -1,11 +1,6 @@
 import { RectButton } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
-
-interface PopUpProps {
-  isOpen: boolean;
-}
-
 export const Container = styled.View`
   flex-direction: row;
   align-items: center;
@@ -34,25 +29,11 @@ export const SearchButton = styled(RectButton)`
   border-radius: 15px;
 `;
 
-// export const PopUpContainer = styled.View<PopUpProps>`
-//   display: ${props => props.isOpen ? 'flex' : 'none'};
-//   flex: 1;
-
-//   align-items: center;
-//   justify-content: center;
-
-//   position: fixed;
-//   /* bottom: 0;
-//   left: 0;
-//   z-index: 1; */
-// `;
-
 export const Modal = styled.Modal`
 
 `;
 
 export const PopUpContent = styled.View`
-  /* flex: 1; */
   align-items: center;
   justify-content: center;
   align-self: center;
