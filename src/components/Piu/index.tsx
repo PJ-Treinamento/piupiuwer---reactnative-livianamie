@@ -19,7 +19,7 @@ import {
 } from "./styles";
 
 import { Feather } from "@expo/vector-icons";
-import { IPiu, IPius } from "../../models";
+import { IPiu, IUser } from "../../models";
 import { useAuth } from "../../hooks/useAuth";
 import api from "../../services/api";
 
@@ -29,76 +29,60 @@ interface PiuProps {
   setPius: (array: IPiu[]) => void;
   isLiked?: boolean;
   isFavorited?: boolean;
-  piuUsername?: string;
 }
 
 const Piu: React.FC<PiuProps> = ({
   piu,
   pius,
   setPius,
-  piuUsername,
   isLiked,
   isFavorited,
 }) => {
   const [likeCount, setLikeCount] = useState(piu.likes.length);
   const [likeStatus, setLikeStatus] = useState(isLiked);
-  const [favoriteStatus, setFavoriteStatus] = useState(isFavorited);
+  const [favoriteStatus, setFavoriteStatus] = useState(isFavorited);  
 
   const { user, token } = useAuth();
 
   const id = piu.id;
 
   const handleDelete = useCallback(() => {
-    pius.map((piuApi: IPiu, index) => {
+    pius.forEach(async (piuApi: IPiu, index) => {
       if (id === piuApi.id) {
         const newPiusArray = [...pius];
         newPiusArray.splice(index, 1);
         setPius(newPiusArray);
-
-        const deletePiu = async () => {
-          await api.delete("/pius", { data: { piu_id: piuApi.id } });
-        };
-
-        return deletePiu();
+        await api.delete("/pius", { data: { piu_id: piuApi.id } });
       }
     });
   }, [id, pius]);
 
   const handleLike = useCallback(() => {
-    pius.map((piuApi: IPiu) => {
+    pius.forEach(async (piuApi: IPiu) => {
       if (id === piuApi.id) {
-        const addLikeToApi = async () => {
-          const response = await api.post("/pius/like", { piu_id: piuApi.id });
-          const operation: string = response.data.operation;
+        const response = await api.post("/pius/like", { piu_id: piuApi.id });
+        const operation: string = response.data.operation;
 
-          if (operation === "like") {
-            setLikeCount(likeCount + 1);
-            setLikeStatus(true);
-          } else {
-            setLikeCount(likeCount - 1);
-            setLikeStatus(false);
+        if (operation === "like") {
+          setLikeCount(likeCount + 1);
+          setLikeStatus(true);
+        } else {
+          setLikeCount(likeCount - 1);
+          setLikeStatus(false);
           }
-        };
-        addLikeToApi();
       }
     });
   }, [id, pius, likeCount]);
 
   const handleFavorite = useCallback(() => {
-    pius.map((piuApi: IPiu) => {
+    pius.forEach(async (piuApi: IPiu) => {
       if (id === piuApi.id) {
         if (favoriteStatus === true) {
-          const unfavorite = async () => {
             setFavoriteStatus(false);
             await api.post("/pius/unfavorite", { piu_id: piu.id });
-          };
-          unfavorite();
         } else {
-          const favorite = async () => {
             await api.post("/pius/favorite", { piu_id: piuApi.id });
             setFavoriteStatus(true);
-          };
-          favorite();
         }
       }
     });
