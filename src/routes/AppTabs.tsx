@@ -4,6 +4,8 @@ import { Feather } from "@expo/vector-icons";
 
 import FeedPage from "../pages/FeedPage";
 import ProfilePage from "../pages/ProfilePage";
+import NotificationsPage from "../pages/NotificationsPage";
+import MessagesPage from "../pages/MessagesPage";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -14,7 +16,7 @@ function AppTabs() {
         style: {
           elevation: 0,
           shadowOpacity: 0,
-          height: 80,
+          height: 70,
           borderTopColor: '#7C00F3',
           borderTopWidth: 2
         },
@@ -28,7 +30,7 @@ function AppTabs() {
           width: 25,
           height: 25,
         },
-        inactiveBackgroundColor: "#fafafc",
+        inactiveBackgroundColor: "white",
         activeBackgroundColor: "#ebebf5",
         inactiveTintColor: "#7C00F3",
         activeTintColor: "#7C00F3",
@@ -43,6 +45,26 @@ function AppTabs() {
         }}
         name="FeedPage"
         component={FeedPage}
+      />
+      <Screen
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => {
+            return <Feather name="bell" size={size} color={color} />;
+          },
+        }}
+        name="NotificationsPage"
+        component={NotificationsPage}
+      />
+      <Screen
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ color, size }) => {
+            return <Feather name="inbox" size={size} color={color} />;
+          },
+        }}
+        name="MessagesPage"
+        component={MessagesPage}
       />
       <Screen
         options={{
