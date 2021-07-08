@@ -16,10 +16,8 @@ import {
 import { FontAwesome5 } from "@expo/vector-icons";
 import Background from "../../assets/background.png";
 import { useAuth } from "../../hooks/useAuth";
-import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import api from "../../services/api";
-import { useNavigation } from "@react-navigation/native";
 import { Platform } from "react-native";
 
 const SignUpPage: React.FC = () => {
@@ -33,8 +31,7 @@ const SignUpPage: React.FC = () => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { error } = useAuth();
-  const navigation = useNavigation();
+  const { login } = useAuth();
 
   const handleSignUp = useCallback(async () => {
     if (
@@ -56,7 +53,7 @@ const SignUpPage: React.FC = () => {
         username: username,
       });
 
-      navigation.navigate("LoginPage");
+      login({ email, password });
     } else {
       setErrorMessage("* Todos os campos devem ser preenchidos");
     }
@@ -75,7 +72,7 @@ const SignUpPage: React.FC = () => {
             <Input
               value={firstName}
               onChangeText={(text) => setFirstName(text)}
-              placeholder="Digite seu primeiro nome"
+              placeholder="ex: Fulano"
             />
           </InputWrapper>
           <InputWrapper>
@@ -83,7 +80,7 @@ const SignUpPage: React.FC = () => {
             <Input
               value={lastName}
               onChangeText={(text) => setlastName(text)}
-              placeholder="Digite seu sobrenome"
+              placeholder="ex: Silva"
             />
           </InputWrapper>
           <InputWrapper>
@@ -91,7 +88,7 @@ const SignUpPage: React.FC = () => {
             <Input
               value={email}
               onChangeText={(text) => setEmail(text)}
-              placeholder="Digite seu e-mail"
+              placeholder="ex: fulano.silva@polijunior.com.br"
             />
           </InputWrapper>
           <InputWrapper>
@@ -99,7 +96,7 @@ const SignUpPage: React.FC = () => {
             <Input
               value={username}
               onChangeText={(text) => setUsername(text)}
-              placeholder="Escolha um nome de usuário"
+              placeholder="ex: fulano123"
             />
           </InputWrapper>
           <InputWrapper>
@@ -115,7 +112,7 @@ const SignUpPage: React.FC = () => {
             <Input
               value={about}
               onChangeText={(text) => setAbout(text)}
-              placeholder="Digite uma bio"
+              placeholder="ex: Gosto de andar de skate."
             />
           </InputWrapper>
           <InputWrapper>
@@ -123,7 +120,8 @@ const SignUpPage: React.FC = () => {
             <Input
               value={password}
               onChangeText={(text) => setPassword(text)}
-              placeholder="Escolha uma senha"
+              placeholder="ex: polijunior2021"
+              secureTextEntry={true}
             />
           </InputWrapper>
         </InputsContainer>

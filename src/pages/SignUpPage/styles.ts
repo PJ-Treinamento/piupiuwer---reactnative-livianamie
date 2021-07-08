@@ -44,7 +44,7 @@ export const Input = styled.TextInput`
   border: 1.5px solid #7C00F3;
   border-radius: 5px;
 
-  font-size: 16px;
+  font-size: 15px;
   font-family: Poppins_400Regular;
 
   width: 250px;
@@ -69,7 +69,6 @@ export const LoginButton = styled(RectButton)`
 
   background-color: #9E00FF;
 
-  /* box-shadow: 1px 1px 0 1px #FFF500; */
   border-radius: 8px;
 `;
 
