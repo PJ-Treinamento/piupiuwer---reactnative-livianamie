@@ -29,6 +29,16 @@ export const InputsContainer = styled.View`
   align-items: center;
 `;
 
+export const InputWrapper = styled.View`
+  align-items: flex-start;
+`;
+
+export const Label = styled.Text`
+  font-size: 14px;
+  font-family: Poppins_600SemiBold;
+  color: #7C00F3;
+`;
+
 export const Input = styled.TextInput`
   background-color: white;
   border: 1.5px solid #7C00F3;
@@ -69,4 +79,29 @@ export const LoginButtonText = styled.Text`
   color: #FFF500;
   text-shadow: 1px 1px 0 #000000;
   font-family: Poppins_600SemiBold;
+`;
+
+export const OptionsContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 20px;
+`;
+
+export const SignUpButton = styled(RectButton)`
+  font-size: 14px;
+  color: #7C00F3;
+  font-family: Poppins_600SemiBold;
+
+  margin-left: 20px;
+`;
+
+export const OptionText = styled.Text`
+  font-size: 14px;
+  color: #7C00F3;
+  font-family: Poppins_600SemiBold;
+
+  text-decoration: underline;
+  text-decoration-color: #7C00F3;
 `;

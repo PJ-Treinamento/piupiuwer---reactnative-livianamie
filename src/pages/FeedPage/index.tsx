@@ -9,7 +9,6 @@ import Timeline from "../../components/Timeline";
 import { BackgroundImage, Container, TimelineScroll } from "./styles";
 
 import api from "../../services/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { IPiu, IUser } from "../../models";
 import Background from "../../assets/background.png";
 import { useAuth } from "../../hooks/useAuth";
@@ -19,13 +18,6 @@ const FeedPage: React.FC = () => {
   const [updatedUser, setUpdatedUser] = useState<IUser>({} as IUser);
 
   const { user } = useAuth();
-
-  // useEffect(() => {
-  //   const clearAsyncStorage = async() => {
-  //     AsyncStorage.clear();
-  //   }
-  //   clearAsyncStorage();
-  // }, [])
 
   useEffect(() => {
     const loadPius = async () => {
